@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Pacifico&family=Cinzel:wght@700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+        /* --- COLOR PALETTE --- */
+        --bg-gradient: radial-gradient(circle at center, #fff0f5 0%, #ffcdd2 100%);
+        --cover-bg: linear-gradient(135deg, #c2185b 0%, #880e4f 100%);
+        --spine-color: #560027;
+        --page-bg: #fffbfb;
+        --text-main: #4e342e;
+        --accent: #d81b60;
+        --gold: #c5a059;
+        --gold-gradient: linear-gradient(45deg, #bf953f, #fcf6ba, #bf953f);
+        
+        /* Standard Desktop Dimensions */
+        --book-width: 300px; 
+        --book-height: 420px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    body {
+        background: var(--bg-gradient);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Nunito', sans-serif;
+        color: var(--text-main);
+        overflow: hidden; /* Prevent bouncing/scrolling */
+        perspective: 1500px; 
+    }
+
+    /* --- THE BOOK CONTAINER --- */
+    .book {
+        position: relative;
+        width: var(--book-width);
+        height: var(--book-height);
+        transform-style: preserve-3d;
+        transition: transform 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+
+    /* --- INDIVIDUAL PAGES --- */
+    .page {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        transform-origin: left center;
+        transform-style: preserve-3d;
+        transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+        background-color: var(--page-bg);
+        border-radius: 0 12px 12px 0;
+        cursor: pointer;
+    }
+
+    .front, .back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        overflow: hidden;
+        background: var(--page-bg);
+        border-left: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .front { z-index: 2; }
+    
+    .back {
+        transform: rotateY(180deg);
+        z-index: 1;
+        background-color: #fff0f5;
+        border-radius: 12px 0 0 12px;
+        border-right: 1px solid rgba(0,0,0,0.05);
+        box-shadow: inset -5px 0 15px rgba(0,0,0,0.05);
+    }
+
+    /* --- COVER DESIGN --- */
+    #p1 .front {
+        background: var(--cover-bg);
+        background-image: var(--cover-bg), url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='0.1' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+        color: white;
+        border: 2px solid #560027;
+        box-shadow: inset 10px 0 20px rgba(0,0,0,0.3);
+        border-radius: 0 12px 12px 0;
+    }
+
+    .book-plate {
+        background: #fff8e1;
+        padding: 30px 20px;
+        width: 80%;
+        border: 2px solid var(--gold);
+        outline: 2px dashed var(--gold);
+        outline-offset: -8px;
+        border-radius: 5px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .ribbon-strip {
+        position: absolute;
+        top: 0;
+        right: 30px;
+        width: 30px;
+        height: 100%;
+        background: rgba(0,0,0,0.15);
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    h1 {
+        font-family: 'Cinzel', serif;
+        font-size: 2.2rem;
+        margin: 10px 0;
+        background: var(--gold-gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 700;
+    }
+
+    .cover-subtitle {
+        font-family: 'Pacifico', cursive;
+        color: var(--accent);
+        font-size: 1.1rem;
+    }
+
+    .decorative-line { width: 50px; height: 2px; background: var(--gold); margin: 10px 0; }
+
+    .hello-love {
+        font-family: 'Pacifico', cursive;
+        font-size: 1.3em;
+        color: var(--accent);
+    }
+
+    .gold-line-small {
+        width: 30px;
+        height: 2px;
+        background: var(--gold);
+        margin: 5px 0;
+    }
+
+    .note {
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 8px;
+        color: #5d4037;
+    }
+
+    .tap-arrow {
+        margin-top: 15px;
+        font-weight: bold;
+        font-size: 0.8em;
+        color: #888;
+    }
+
+    h2 { font-family: 'Playfair Display', serif; color: var(--accent); margin-bottom: 12px; font-size: 1.6rem; }
+
+    p { font-size: 1rem; line-height: 1.5; margin-bottom: 8px; color: #5d4037; }
+
+    .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; margin-top: 10px; }
+
+    .mood-btn {
+        background: white; border: 2px solid #f8bbd0; padding: 10px; border-radius: 8px;
+        color: var(--text-main); font-weight: 700; cursor: pointer; transition: 0.2s;
+    }
+
+    .mood-btn:hover { background: var(--accent); color: white; }
+
+    .poem-menu-btn {
+        width: 100%; padding: 10px; margin: 6px 0; background: white; border: 1px solid #f8bbd0;
+        border-left: 4px solid var(--accent); border-radius: 4px; font-family: 'Playfair Display', serif;
+        font-weight: bold; cursor: pointer; text-align: left; transition: 0.2s;
+    }
+
+    .poem-scroll-container {
+        width: 100%; height: 85%; overflow-y: auto; text-align: left; padding: 12px;
+        background: #fffdfd; border: 1px solid #f8bbd0; border-radius: 4px; transform: translateZ(0); 
+    }
+    
+    .poem-text { font-family: 'Playfair Display', serif; font-style: italic; white-space: pre-wrap; line-height: 1.6; font-size: 1rem; color: #444; opacity: 0; transition: 0.5s; }
+    .poem-visible { opacity: 1; }
+
+    .polaroid {
+        background: white; padding: 10px 10px 30px 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        transform: rotate(-2deg); width: 90%; margin: 15px 0; border: 1px solid #eee;
+    }
+    .polaroid-img { background: #f5f5f5; height: 180px; overflow: hidden; }
+    .polaroid-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    .lock-container { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    .blur-content { filter: blur(8px); opacity: 0.4; transition: 0.8s; }
+    .unlock-btn {
+        font-size: 3rem;
+        z-index: 10;
+        filter: drop-shadow(0 4px 4px rgba(0,0,0,0.1));
+        background: none;
+        border: none;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+    }
+
+    .unlock-btn:focus {
+        outline: 2px solid var(--accent);
+        outline-offset: 5px;
+    }
+
+    /* --- NAVIGATION --- */
+    .controls {
+        position: fixed; bottom: 5vh; left: 0; width: 100%;
+        display: flex; justify-content: center; gap: 50px; z-index: 1000;
+    }
+    .nav-btn {
+        width: 55px; height: 55px; border-radius: 50%; background: white; border: none;
+        color: var(--accent); font-size: 1.5rem; cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center;
+    }
+
+    .nav-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .nav-btn:focus {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+    }
+
+    /* --- REDUCED MOTION --- */
+    @media (prefers-reduced-motion: reduce) {
+        .book, .page, .blur-content, .mood-result {
+            transition: none !important;
+        }
+        #hearts-container {
+            display: none;
+        }
+        .flipped {
+            transform: rotateY(-180deg);
+        }
+    }
+
+    /* --- MOBILE: PROPORTIONAL SCALING --- */
+    @media (max-width: 600px) {
+        :root {
+            /* Keep it like a real book shape: Width 44% of screen per page */
+            --book-width: 44vw; 
+            /* Aspect ratio approx 1:1.4 (typical book) */
+            --book-height: 62vw; 
+        }
+
+        .book {
+            /* Center the closed book on screen */
+            margin-top: -10vh; 
+        }
+
+        /* Open book: Shift right by half the width of one page */
+        .book.book-open {
+            transform: translateX(22vw);
+        }
+
+        .front, .back { padding: 12px; }
+        
+        h1 { font-size: 1.3rem; }
+        h2 { font-size: 1.1rem; }
+        p { font-size: 0.8rem; line-height: 1.3; }
+        
+        .book-plate { padding: 10px; }
+        .polaroid-img { height: 100px; }
+        .mood-btn { padding: 5px; font-size: 0.75rem; }
+        .poem-menu-btn { padding: 6px; font-size: 0.75rem; }
+        .poem-text { font-size: 0.85rem; }
+    }
+
+    .flipped { transform: rotateY(-180deg); }
+    
+    .rose-emoji {
+        font-size: 1.5rem;
+        margin-bottom: 2px;
+    }
+
+    .hello-love {
+        font-family: 'Pacifico', cursive;
+        font-size: 1.3em;
+        color: var(--accent);
+    }
+
+    .gold-line-small {
+        width: 30px;
+        height: 2px;
+        background: var(--gold);
+        margin: 5px 0;
+    }
+
+    .note {
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 8px;
+        color: #5d4037;
+    }
+
+    .tap-arrow {
+        margin-top: 15px;
+        font-weight: bold;
+        font-size: 0.8em;
+        color: #888;
+    }
+    
+    .poetry-chapter-container {
+        height:100%; 
+        display:flex; 
+        flex-direction:column; 
+        justify-content:center; 
+        align-items:center; 
+        border: 44px double var(--gold);
+    }
+    
+    .poetry-title {
+        font-family: 'Cinzel', serif; 
+        font-size:1.8rem;
+    }
+    
+    .poetry-text-container {
+        margin-top:10px;
+    }
+
+    .select-topic-title {
+        font-size:1.4rem;
+    }
+    
+    .select-topic-note {
+        font-size:0.8rem; 
+        margin-bottom:15px;
+    }
+
+    .mood-result-container {
+        min-height: 80px; 
+        display:flex; 
+        flex-direction:column; 
+        justify-content:center; 
+        align-items:center; 
+        opacity:0; 
+        transition:opacity 0.5s;
+    }
+
+    .mood-icon {
+        font-size:2rem; 
+        margin-bottom: 2px;
+    }
+
+    .mood-text {
+        font-weight:bold; 
+        color:var(--accent); 
+        font-size:0.9em; 
+        text-align:center; 
+        padding:0 5px;
+    }
+
+    .polaroid-caption {
+        font-family:'Pacifico'; 
+        margin-top:5px; 
+        color:#666; 
+        font-size: 0.9em;
+    }
+
+    .lock-hint {
+        position:absolute; 
+        bottom:65px; 
+        font-size:0.7em; 
+        color:#999;
+    }
+    
+    .close-book-button {
+        position:absolute; 
+        bottom:15px; 
+        background:var(--accent); 
+        color:white; 
+        border:none; 
+        padding:5px 15px;
+    }
+</style>
+</head>
+<body>
+
+    <!-- FLOATING HEARTS BG -->
+    <div id="hearts-container" style="position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:0;"></div>
+
+    <div class="book" id="book">
+        
+        <!-- PAGE 1: COVER -->
+        <div class="page" id="p1">
+            <div class="front">
+                <div class="ribbon-strip"></div>
+                <div class="book-plate">
+                    <div class="rose-emoji">🌹</div>
+                    <div class="decorative-line"></div>
+                    <h1>Our Story</h1>
+                    <div class="decorative-line"></div>
+                    <p class="cover-subtitle">A Small gift</p>
+                </div>
+            </div>
+            <div class="back">
+                <p class="hello-love">Hello Love!</p>
+                <div class="gold-line-small"></div>
+                <p class="note">I wanted to make something special for you, because you are Sakshiii.</p>
+                <p class="note">Just a little reminder of how much you are loved, even if you don't have a boyfriend</p>
+                <p class="note tap-arrow">Tap arrow →</p>
+            </div>
+        </div>
+
+        <!-- PAGE 2: MOOD & MEMORY -->
+        <div class="page" id="p2">
+            <div class="front">
+                <h2>How are you doing this fine Valentine?</h2>
+                <div class="btn-grid">
+                    <button class="mood-btn" data-mood="Happy">Happy 😊</button>
+                    <button class="mood-btn" data-mood="Tired">Tired 😴</button>
+                    <button class="mood-btn" data-mood="Unloved">Unloved 💔</button>
+                    <button class="mood-btn" data-mood="Sad">Sad 😔</button>
+                </div>
+                <div id="mood-result" class="mood-result-container">
+                    <div id="mood-icon" class="mood-icon"></div>
+                    <p id="mood-text" class="mood-text"></p>
+                </div>
+            </div>
+            <div class="back">
+                <h2>A Memory</h2>
+                <div class="polaroid">
+                    <!-- REPLACE WITH YOUR PHOTO URL -->
+                    <div class="polaroid-img"><img src="image.png" alt="A polaroid picture of a couple"></div>
+                    <div class="polaroid-caption">Koi na tha, nai hai, na hoga, koi tumse zyada sundar. Na tha, na hai, na hoga</div>
+                </div>
+                <p>Let's make more.</p>
+            </div>
+        </div>
+
+        <!-- PAGE 3: POETRY MENU (LEFT SIDE) -->
+        <div class="page" id="p3">
+            <div class="front">
+                <div class="poetry-chapter-container">
+                    <h2 class="poetry-title">Poetry<br>Chapter</h2>
+                    <div class="decorative-line"></div>
+                    <p class="poetry-text-container">The things<br> in a way<br>Which<br> I won't <br> usually say</p>
+                </div>
+            </div>
+            <div class="back">
+                <h2 class="select-topic-title">Select a Topic</h2>
+                <p class="select-topic-note">Pick one to read <br> Read all though</p>
+                
+                <div style="width: 100%;">
+                    <button class="poem-menu-btn" data-poem="silence">When you are sad</button>
+                    <button class="poem-menu-btn" data-poem="mad">When you don't talk to me</button>
+                    <button class="poem-menu-btn" data-poem="love">When I can't express how much I love you</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 4: POETRY DISPLAY (RIGHT SIDE) & LOCK -->
+        <div class="page" id="p4">
+            <div class="front">
+                <!-- Poetry Text Display Area -->
+                <div class="poem-scroll-container">
+                    <div id="poem-content-area">
+                        <div class="placeholder-text">
+                            "Poetry is the clear expression of mixed feelings."
+                            <br><br>
+                            ← Select a title from the left page.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="back">
+                <div class="lock-container">
+                    <div id="secret-content" class="blur-content">
+                        <h2 style="font-family:'Pacifico';">I Love You</h2>
+                        <div style="width: 40px; height: 2px; background:var(--accent); margin: 10px 0;"></div>
+                        <p>More than words can say.</p>
+                        <p>You are my favorite.</p>
+                        <div style="font-size:2rem; margin-top:10px;">❤️</div>
+                    </div>
+                    
+                    <button id="lock-icon" class="unlock-btn" aria-label="Unlock secret message">🔒</button>
+                    <p class="lock-hint">Tap lock or press enter</p>
+                    <button id="close-book-btn" class="mood-btn close-book-button">Close Book</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="controls">
+        <button class="nav-btn" id="prevBtn">←</button>
+        <button class="nav-btn" id="nextBtn">→</button>
+    </div>
+
+    <!-- Lightbox for full image view -->
+    <div id="lightbox" class="lightbox" aria-hidden="true">
+        <div class="lightbox-content" role="document">
+            <img id="lightbox-img" src="" alt="Full image view" />
+            <button id="lightbox-close" class="lightbox-close" aria-label="Close">×</button>
+        </div>
+    </div>
+
+    <style>
+    /* Lightbox styles */
+    .lightbox{
+        position: fixed;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0,0,0,0.85);
+        z-index: 9999;
+        padding: 20px;
+    }
+    .lightbox.visible { display:flex; }
+    .lightbox-content { position: relative; max-width: 95%; max-height: 95%; }
+    .lightbox img { max-width: 100%; max-height: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.7); }
+    .lightbox-close { position: absolute; top: -12px; right: -12px; background: white; border:none; border-radius: 50%; width: 36px; height:36px; font-size: 18px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+    </style>
+
+    <script>
+        class Book {
+            constructor() {
+                // --- DOM ELEMENTS ---
+                this.dom = {
+                    book: document.getElementById('book'),
+                    pages: document.querySelectorAll('.page'),
+                    prevBtn: document.getElementById('prevBtn'),
+                    nextBtn: document.getElementById('nextBtn'),
+                    
+                    moodBtns: document.querySelectorAll('.mood-btn'),
+                    moodResult: document.getElementById('mood-result'),
+                    moodIcon: document.getElementById('mood-icon'),
+                    moodText: document.getElementById('mood-text'),
+                    
+                    poemMenuBtns: document.querySelectorAll('.poem-menu-btn'),
+                    poemContentArea: document.getElementById('poem-content-area'),
+                    
+                    lockIcon: document.getElementById('lock-icon'),
+                    lockHint: document.getElementById('lock-hint'),
+                    secretContent: document.getElementById('secret-content'),
+                    closeBookBtn: document.getElementById('close-book-btn'),
+
+                    polaroidImg: document.querySelector('.polaroid-img img'),
+                    lightbox: document.getElementById('lightbox'),
+                    lightboxImg: document.getElementById('lightbox-img'),
+                    lightboxClose: document.getElementById('lightbox-close'),
+                    heartsContainer: document.getElementById('hearts-container'),
+                };
+
+                // --- STATE ---
+                this.currentPage = 0;
+                this.maxPageIndex = this.dom.pages.length;
+                this.isFlipping = false;
+                this.prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+                // --- DATA ---
+                this.poems = {
+                    'silence': {
+                        title: "When silence falls...",
+                        text: "When you don't talk to me,\nthe world feels a little quieter,\na little colder.\n\nI check my phone,\nhoping to see your name,\nbecause your words are the sunlight\nthat breaks through my gray days.\n\nEven in the silence,\nknow that I am waiting,\nand that I love you\nmore than the quiet is loud."
+                    },
+                    'mad': {
+                        title: "When storms come...",
+                        text: "I know things get tough.\nI know I make mistakes.\n\nWhen you are mad at me,\nit feels like a storm inside my chest.\nI never want to be the reason\nfor your frown.\n\nBut even in the storm,\nI am not leaving.\nI am here to fix it,\nto hold you,\nuntil the sun comes out again."
+                    },
+                    'love': {
+                        title: "Just Because...",
+                        text: "I don't need a reason\nto write this down.\n\nI just wanted you to know\nthat you are the best thing\nthat has ever happened to me.\n\nToday, tomorrow,\nand forever."
+                    }
+                };
+                
+                this.moods = {
+                    'Happy': { icon: '😄', msg: "Your smile lights up my world!" },
+                    'Tired': { icon: '🍵', msg: "Rest well, you've done enough." },
+                    'Unloved': { icon: '💔', msg: "Even after all this, you're feeling unloved?" },
+                    'Sad': { icon: '❤️‍🩹', msg: "I'm with you. Always." }
+                };
+
+                // --- INITIALIZATION ---
+                this.addEventListeners();
+                this.updateNavButtons();
+                this.updateZIndex();
+                this.setupAria();
+                
+                if (!this.prefersReducedMotion) {
+                    this.startHeartsAnimation();
+                }
+            }
+
+            // --- DEBOUNCE UTILITY ---
+            debounce(func, delay) {
+                let timeout;
+                return (...args) => {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(this, args), delay);
+                };
+            }
+            
+            // --- CORE LOGIC ---
+            updateZIndex() {
+                this.dom.pages.forEach((page, index) => {
+                    const pageNum = index;
+                    if (pageNum < this.currentPage) {
+                        page.classList.add('flipped');
+                        page.style.zIndex = pageNum;
+                    } else {
+                        page.classList.remove('flipped');
+                        page.style.zIndex = this.maxPageIndex - pageNum;
+                    }
+                });
+            }
+
+            goNext = () => {
+                if (this.currentPage >= this.maxPageIndex) return;
+                
+                if (this.currentPage === 0) {
+                    this.dom.book.classList.add('book-open');
+                }
+                
+                this.currentPage++;
+                this.updateZIndex();
+                this.updateNavButtons();
+            }
+
+            goPrev = () => {
+                if (this.currentPage <= 0) return;
+                
+                this.currentPage--;
+                if (this.currentPage === 0) {
+                    this.dom.book.classList.remove('book-open');
+                }
+                
+                this.updateZIndex();
+                this.updateNavButtons();
+            }
+            
+            closeBook = () => {
+                this.currentPage = 0;
+                this.updateZIndex();
+                this.dom.book.classList.remove('book-open');
+                this.updateNavButtons();
+                setTimeout(this.resetUI, 500);
+            }
+
+            // --- UI & INTERACTIVITY ---
+            setMood(mood) {
+                const data = this.moods[mood];
+                if (!data) return;
+                this.dom.moodIcon.innerText = data.icon;
+                this.dom.moodText.innerText = data.msg;
+                this.dom.moodResult.style.opacity = '1';
+            }
+            
+            showPoem(key) {
+                const poemData = this.poems[key];
+                if (!poemData) return;
+                this.dom.poemContentArea.innerHTML = `
+                    <div class="poem-title-display" tabindex="-1">${poemData.title}</div>
+                    <div class="poem-text poem-visible">${poemData.text}</div>
+                `;
+                this.dom.poemContentArea.firstElementChild.focus();
+            }
+
+            unlockSecret() {
+                this.dom.secretContent.classList.remove('blur-content');
+                this.dom.lockIcon.style.display = 'none';
+                this.dom.lockHint.style.display = 'none';
+            }
+
+            resetUI = () => {
+                // Reset secret content
+                this.dom.secretContent.classList.add('blur-content');
+                this.dom.lockIcon.style.display = 'block';
+                this.dom.lockHint.style.display = 'block';
+                
+                // Reset mood
+                this.dom.moodResult.style.opacity = '0';
+                
+                // Reset poem
+                this.dom.poemContentArea.innerHTML = `
+                    <div class="placeholder-text">
+                        "Poetry is the clear expression of mixed feelings."
+                        <br><br>
+                        ← Select a title from the left page.
+                    </div>`;
+            }
+
+            updateNavButtons() {
+                const atStart = this.currentPage === 0;
+                const atEnd = this.currentPage === this.maxPageIndex;
+                
+                this.dom.prevBtn.disabled = atStart;
+                this.dom.nextBtn.disabled = atEnd;
+
+                this.dom.prevBtn.setAttribute('aria-disabled', atStart);
+                this.dom.nextBtn.setAttribute('aria-disabled', atEnd);
+            }
+            
+            // --- ACCESSIBILITY ---
+            setupAria() {
+                this.dom.prevBtn.setAttribute('aria-label', 'Previous Page');
+                this.dom.nextBtn.setAttribute('aria-label', 'Next Page');
+                this.dom.polaroidImg.setAttribute('aria-label', 'View larger image of us');
+                this.dom.lightbox.setAttribute('aria-hidden', 'true');
+                this.dom.lightbox.setAttribute('role', 'dialog');
+                this.dom.lightbox.setAttribute('aria-modal', 'true');
+            }
+
+            openLightbox = () => {
+                const src = this.dom.polaroidImg.src;
+                const alt = this.dom.polaroidImg.alt;
+                
+                this.dom.lightboxImg.src = src;
+                this.dom.lightboxImg.alt = alt;
+                this.dom.lightbox.classList.add('visible');
+                this.dom.lightbox.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+                
+                // Focus trapping
+                this.lastFocusedElement = document.activeElement;
+                this.dom.lightboxClose.focus();
+            }
+
+            closeLightbox = () => {
+                this.dom.lightbox.classList.remove('visible');
+                this.dom.lightbox.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+                this.dom.lightboxImg.src = '';
+                
+                // Restore focus
+                if (this.lastFocusedElement) {
+                    this.lastFocusedElement.focus();
+                }
+            }
+
+            // --- ANIMATIONS ---
+            startHeartsAnimation() {
+                const createHeart = () => {
+                    const h = document.createElement('div');
+                    const symbols = ['❤️', '✨', '🌹'];
+                    h.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+                    h.style.position = 'absolute';
+                    h.style.left = Math.random() * 100 + 'vw';
+                    h.style.top = '100vh';
+                    h.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                    h.style.opacity = '0'; // Start invisible
+                    h.style.pointerEvents = 'none';
+                    this.dom.heartsContainer.appendChild(h);
+
+                    requestAnimationFrame(() => {
+                        h.style.transition = 'transform 8s linear, opacity 8s';
+                        h.style.transform = `translateY(-120vh) rotate(${Math.random()*360}deg)`;
+                        h.style.opacity = '0.3';
+                    });
+                    
+                    setTimeout(() => h.remove(), 8000);
+                }
+                
+                setInterval(createHeart, 800);
+            }
+
+            // --- EVENT LISTENERS ---
+            addEventListeners() {
+                // Navigation
+                this.dom.prevBtn.addEventListener('click', this.debounce(this.goPrev, 250));
+                this.dom.nextBtn.addEventListener('click', this.debounce(this.goNext, 250));
+
+                // Mood Buttons
+                this.dom.moodBtns.forEach(btn => {
+                    btn.addEventListener('click', (e) => this.setMood(e.currentTarget.dataset.mood));
+                });
+                
+                // Poem Buttons
+                this.dom.poemMenuBtns.forEach(btn => {
+                    btn.addEventListener('click', (e) => this.showPoem(e.currentTarget.dataset.poem));
+                });
+
+                // Lock & Close
+                this.dom.lockIcon.addEventListener('click', this.unlockSecret);
+                this.dom.closeBookBtn.addEventListener('click', this.closeBook);
+
+                // Lightbox
+                this.dom.polaroidImg.addEventListener('click', this.openLightbox);
+                this.dom.lightbox.addEventListener('click', (e) => {
+                    if (e.target === this.dom.lightbox || e.target === this.dom.lightboxClose) {
+                        this.closeLightbox();
+                    }
+                });
+
+                // Keyboard Controls
+                document.addEventListener('keydown', (e) => {
+                    if (this.dom.lightbox.classList.contains('visible')) {
+                        if (e.key === "Escape") this.closeLightbox();
+                        return; // Ignore book navigation while lightbox is open
+                    }
+                    if (e.key === "ArrowRight") this.goNext();
+                    if (e.key === "ArrowLeft") this.goPrev();
+                });
+            }
+        }
+
+        // --- KICK IT OFF ---
+        document.addEventListener('DOMContentLoaded', () => {
+            new Book();
+        });
+    </script>
+</body>
+</html>
