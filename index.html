@@ -202,7 +202,7 @@
         transform: rotate(-2deg); width: 90%; margin: 15px 0; border: 1px solid #eee;
     }
     .polaroid-img { background: #f5f5f5; height: 180px; overflow: hidden; }
-    .polaroid-img img { width: 100%; height: 100%; object-fit: cover; }
+    .polaroid-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; transition: transform 0.25s ease; }
 
     .lock-container { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
     .blur-content { filter: blur(8px); opacity: 0.4; transition: 0.8s; }
@@ -399,7 +399,7 @@
 <body>
 
     <!-- FLOATING HEARTS BG -->
-    <div id="hearts-container" style="position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:0;"></div>
+    <div id="hearts-container" style="position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:9997;"></div>
 
     <div class="book" id="book">
         
@@ -440,13 +440,13 @@
                 </div>
             </div>
             <div class="back">
-                <h2>A Memory</h2>
+                <h2>A Photo</h2>
                 <div class="polaroid">
                     <!-- REPLACE WITH YOUR PHOTO URL -->
                     <div class="polaroid-img"><img src="image.png" alt="A polaroid picture of a couple"></div>
                     <div class="polaroid-caption">Koi na tha, nai hai, na hoga, koi tumse zyada sundar. Na tha, na hai, na hoga</div>
                 </div>
-                <p>Let's make more.</p>
+                <p>Well, my favourtire photo</p>
             </div>
         </div>
 
@@ -471,6 +471,10 @@
             </div>
         </div>
 
+
+
+
+
         <!-- PAGE 4: POETRY DISPLAY (RIGHT SIDE) & LOCK -->
         <div class="page" id="p4">
             <div class="front">
@@ -478,26 +482,54 @@
                 <div class="poem-scroll-container">
                     <div id="poem-content-area">
                         <div class="placeholder-text">
-                            "Poetry is the clear expression of mixed feelings."
+                            Poetry is something I do to say what can't be said
                             <br><br>
-                            ← Select a title from the left page.
+                            
                         </div>
                     </div>
                 </div>
             </div>
             <div class="back">
                 <div class="lock-container">
-                    <div id="secret-content" class="blur-content">
-                        <h2 style="font-family:'Pacifico';">I Love You</h2>
-                        <div style="width: 40px; height: 2px; background:var(--accent); margin: 10px 0;"></div>
-                        <p>More than words can say.</p>
-                        <p>You are my favorite.</p>
-                        <div style="font-size:2rem; margin-top:10px;">❤️</div>
+                    <div id="secret-content" class="blur-content" style="position: relative; overflow: hidden;">
+                        <div id="animation-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0;"></div>
+                        <div style="position: relative; z-index: 1;">
+                            <h2 style="font-family:'Pacifico';">I Love You</h2>
+                            <div style="width: 40px; height: 2px; background:var(--accent); margin: 10px 0;"></div>
+                            <p>More than words can say.</p>
+                            <p>You are my favorite.</p>
+                            <div style="font-size:2rem; margin-top:10px;">❤️</div>
+                        </div>
                     </div>
                     
                     <button id="lock-icon" class="unlock-btn" aria-label="Unlock secret message">🔒</button>
-                    <p class="lock-hint">Tap lock or press enter</p>
+                    <p id="lock-hint" class="lock-hint">Tap lock or press enter</p>
                     <button id="close-book-btn" class="mood-btn close-book-button">Close Book</button>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <!-- PAGE 5: WILL YOU BE MY VALENTINE? -->
+        <div class="page" id="p5">
+            <div class="front">
+                <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100%;">
+                    <h2 style="font-family:'Pacifico'; font-size:2rem; color:var(--accent);">Will you be my Valentine?</h2>
+                    <div style="font-size:3rem; margin-top:20px;">💘</div>
+                </div>
+            </div>
+            <div class="back" style="background: var(--cover-bg); background-image: var(--cover-bg), url(&quot;data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='0.1' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E&quot;); color: white; border: 8px double #c5a059; box-shadow: inset 10px 0 20px rgba(0,0,0,0.3); border-radius: 12px 0 0 12px;">
+                <div class="ribbon-strip"></div>
+                <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100%; padding: 25px;">
+                    <div class="decorative-line"></div>
+                    <div class="rose-emoji" style="margin: 15px 0;">💖</div>
+                    <div class="decorative-line"></div>
+                    <h1>Thank You</h1>
+                    <div class="decorative-line"></div>
+                    <p class="cover-subtitle" style="color: var(--gold);">For being you</p>
                 </div>
             </div>
         </div>
@@ -533,6 +565,44 @@
     .lightbox-content { position: relative; max-width: 95%; max-height: 95%; }
     .lightbox img { max-width: 100%; max-height: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.7); }
     .lightbox-close { position: absolute; top: -12px; right: -12px; background: white; border:none; border-radius: 50%; width: 36px; height:36px; font-size: 18px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+
+    .unlock-burst {
+        position: fixed;
+        left: 0;
+        top: 0;
+        transform: translate(var(--x), var(--y)) scale(0.6);
+        opacity: 0;
+        pointer-events: none;
+        animation: unlockBurst 1.6s ease-out forwards;
+        will-change: transform, opacity;
+        z-index: 9998;
+    }
+    @keyframes unlockBurst {
+        0% { opacity: 0; transform: translate(var(--x), var(--y)) scale(0.6) rotate(0deg); }
+        20% { opacity: 1; }
+        100% { opacity: 0; transform: translate(calc(var(--x) + var(--dx)), calc(var(--y) + var(--dy))) scale(1.1) rotate(var(--rot)); }
+    }
+
+    .animated-symbol {
+        position: absolute;
+        bottom: -20px;
+        animation: floatUp 4s ease-in-out forwards;
+        opacity: 0;
+    }
+
+    @keyframes floatUp {
+        0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 0;
+        }
+        20%, 80% {
+            opacity: 0.9;
+        }
+        100% {
+            transform: translateY(-200px) rotate(360deg);
+            opacity: 0;
+        }
+    }
     </style>
 
     <script>
@@ -556,7 +626,12 @@
                     lockIcon: document.getElementById('lock-icon'),
                     lockHint: document.getElementById('lock-hint'),
                     secretContent: document.getElementById('secret-content'),
-                    closeBookBtn: document.getElementById('close-book-btn'),
+
+                    polaroidImg: document.querySelector('.polaroid-img img'),
+                    lightbox: document.getElementById('lightbox'),
+                    lightboxImg: document.getElementById('lightbox-img'),
+                    lightboxClose: document.getElementById('lightbox-close'),
+                    heartsContainer: document.getElementById('hearts-container'),
 
                     polaroidImg: document.querySelector('.polaroid-img img'),
                     lightbox: document.getElementById('lightbox'),
@@ -599,10 +674,6 @@
                 this.updateNavButtons();
                 this.updateZIndex();
                 this.setupAria();
-                
-                if (!this.prefersReducedMotion) {
-                    this.startHeartsAnimation();
-                }
             }
 
             // --- DEBOUNCE UTILITY ---
@@ -679,18 +750,73 @@
                 this.dom.poemContentArea.firstElementChild.focus();
             }
 
-            unlockSecret() {
+            unlockSecret = () => {
+                if (!this.dom.secretContent.classList.contains('blur-content')) return;
+                const rect = this.dom.lockIcon.getBoundingClientRect();
                 this.dom.secretContent.classList.remove('blur-content');
-                this.dom.lockIcon.style.display = 'none';
-                this.dom.lockHint.style.display = 'none';
+                if (this.dom.lockIcon) this.dom.lockIcon.style.display = 'none';
+                if (this.dom.lockHint) this.dom.lockHint.style.display = 'none';
+                this.triggerUnlockBurst(rect);
+                this.startHeartsAnimation(3500);
+                this.startInternalAnimation();
+
+                // Automatically close the book after a delay
+                setTimeout(() => {
+                    this.closeBook();
+                }, 2500); // 2.5 second delay to read the message
+            }
+
+            startInternalAnimation = () => {
+                const container = document.getElementById('animation-container');
+                if (!container) return;
+                const symbols = ['❤️', '🌸', '🌹', '✨', '💖', '🌷'];
+                const numElements = 20;
+
+                for (let i = 0; i < numElements; i++) {
+                    setTimeout(() => {
+                        const el = document.createElement('div');
+                        el.className = 'animated-symbol';
+                        el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                        el.style.left = `${Math.random() * 90}%`;
+                        el.style.fontSize = `${Math.random() * 16 + 10}px`;
+                        container.appendChild(el);
+                        setTimeout(() => el.remove(), 4000);
+                    }, i * 150);
+                }
+            }
+
+            triggerUnlockBurst(rect) {
+                const symbols = ['❤️', '🌸', '🌹', '✨'];
+                const originX = rect.left + rect.width / 2;
+                const originY = rect.top + rect.height / 2;
+
+                const count = 22;
+                for (let i = 0; i < count; i++) {
+                    const el = document.createElement('div');
+                    el.className = 'unlock-burst';
+                    el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                    const dx = (Math.random() * 200 - 100).toFixed(0);
+                    const dy = (-Math.random() * 220 - 60).toFixed(0);
+                    const rot = `${Math.random() * 180 - 90}deg`;
+                    el.style.setProperty('--x', `${originX}px`);
+                    el.style.setProperty('--y', `${originY}px`);
+                    el.style.setProperty('--dx', `${dx}px`);
+                    el.style.setProperty('--dy', `${dy}px`);
+                    el.style.setProperty('--rot', rot);
+                    el.style.fontSize = `${Math.random() * 18 + 14}px`;
+                    document.body.appendChild(el);
+                    const duration = Math.random() * 500 + 1200;
+                    el.style.animationDuration = `${duration}ms`;
+                    setTimeout(() => el.remove(), duration + 100);
+                }
             }
 
             resetUI = () => {
                 // Reset secret content
                 this.dom.secretContent.classList.add('blur-content');
-                this.dom.lockIcon.style.display = 'block';
-                this.dom.lockHint.style.display = 'block';
-                
+                if (this.dom.lockIcon) this.dom.lockIcon.style.display = 'block';
+                if (this.dom.lockHint) this.dom.lockHint.style.display = 'block';
+
                 // Reset mood
                 this.dom.moodResult.style.opacity = '0';
                 
@@ -702,6 +828,7 @@
                         ← Select a title from the left page.
                     </div>`;
             }
+
 
             updateNavButtons() {
                 const atStart = this.currentPage === 0;
@@ -752,10 +879,11 @@
             }
 
             // --- ANIMATIONS ---
-            startHeartsAnimation() {
+            startHeartsAnimation(durationMs = 3500) {
+                if (this.prefersReducedMotion) return;
                 const createHeart = () => {
                     const h = document.createElement('div');
-                    const symbols = ['❤️', '✨', '🌹'];
+                    const symbols = ['❤️', '🌸', '🌹', '✨'];
                     h.innerText = symbols[Math.floor(Math.random() * symbols.length)];
                     h.style.position = 'absolute';
                     h.style.left = Math.random() * 100 + 'vw';
@@ -773,8 +901,9 @@
                     
                     setTimeout(() => h.remove(), 8000);
                 }
-                
-                setInterval(createHeart, 800);
+                createHeart();
+                const intervalId = setInterval(createHeart, 180);
+                setTimeout(() => clearInterval(intervalId), durationMs);
             }
 
             // --- EVENT LISTENERS ---
@@ -795,7 +924,6 @@
 
                 // Lock & Close
                 this.dom.lockIcon.addEventListener('click', this.unlockSecret);
-                this.dom.closeBookBtn.addEventListener('click', this.closeBook);
 
                 // Lightbox
                 this.dom.polaroidImg.addEventListener('click', this.openLightbox);
@@ -813,6 +941,11 @@
                     }
                     if (e.key === "ArrowRight") this.goNext();
                     if (e.key === "ArrowLeft") this.goPrev();
+                    if (e.key === "Enter" || e.key === " ") {
+                        if (this.dom.lockIcon && this.dom.lockIcon.style.display !== 'none') {
+                            this.unlockSecret();
+                        }
+                    }
                 });
             }
         }
