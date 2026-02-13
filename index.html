@@ -191,8 +191,7 @@
 
     .poem-scroll-container {
         width: 100%; height: 85%; overflow-y: auto; text-align: left; padding: 12px;
-        background: #fffdfd; border: 1px solid #f8bbd0; border-radius: 4px; transform: translateZ(0); 
-    }
+        background: #fffdfd; border: 1px solid #f8bbd0; border-radius: 4px;}
     
     .poem-text { font-family: 'Playfair Display', serif; font-style: italic; white-space: pre-wrap; line-height: 1.6; font-size: 1rem; color: #444; opacity: 0; transition: 0.5s; }
     .poem-visible { opacity: 1; }
@@ -283,44 +282,12 @@
         
         .book-plate { padding: 10px; }
         .polaroid-img { height: 100px; }
-        .mood-btn { padding: 5px; font-size: 0.75rem; }
-        .poem-menu-btn { padding: 6px; font-size: 0.75rem; }
+        .mood-btn { padding: 8px; font-size: 0.75rem; }
+        .poem-menu-btn { padding: 8px; font-size: 0.75rem; }
         .poem-text { font-size: 0.85rem; }
     }
 
     .flipped { transform: rotateY(-180deg); }
-    
-    .rose-emoji {
-        font-size: 1.5rem;
-        margin-bottom: 2px;
-    }
-
-    .hello-love {
-        font-family: 'Pacifico', cursive;
-        font-size: 1.3em;
-        color: var(--accent);
-    }
-
-    .gold-line-small {
-        width: 30px;
-        height: 2px;
-        background: var(--gold);
-        margin: 5px 0;
-    }
-
-    .note {
-        font-size: 1rem;
-        line-height: 1.5;
-        margin-bottom: 8px;
-        color: #5d4037;
-    }
-
-    .tap-arrow {
-        margin-top: 15px;
-        font-weight: bold;
-        font-size: 0.8em;
-        color: #888;
-    }
     
     .poetry-chapter-container {
         height:100%; 
@@ -394,14 +361,150 @@
         border:none; 
         padding:5px 15px;
     }
+
+    .decorated-back {
+        border: 2px solid var(--gold);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        border-radius: 12px 0 0 12px;
+    }
+
+    .more-decorated-back {
+        background-color: #fffafb;
+        background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23f8bbd0' fill-opacity='0.2'%3E%3Cpath fill-rule='evenodd' d='M5 0a2 2 0 0 1 2 2c0 1.5-2 3-2 3S3 3.5 3 2a2 2 0 0 1 2-2z'/%3E%3C/g%3E%3C/svg%3E");
+        border: 2px solid var(--gold);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        border-radius: 12px 0 0 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .more-decorated-back .hello-love {
+        font-size: 2em; /* Make "Hello Love" bigger */
+    }
+
+    .flourish {
+        width: 80%;
+        height: 20px;
+        fill: var(--gold);
+        margin: 10px 0;
+    }
+#top-right-svg {
+    position: fixed;
+    top: 20px; /* Small offset from the very top */
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    width: 120px;
+    height: 120px;
+    z-index: 1;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+    display: none; /* Initially hidden */
+}
 </style>
 </head>
 <body>
+    <div id="splash-screen" style="position: fixed; inset: 0; background: radial-gradient(circle at center, #fff0f5 0%, #ffcdd2 100%); z-index: 10000; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: opacity 1s ease-out;">
+        <div style="text-align: center; color: #4e342e;">
+            <h1 style="font-family: 'Cinzel', serif; font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(45deg, #bf953f, #fcf6ba, #bf953f); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">A Gift for You</h1>
+            <p style="font-family: 'Nunito', sans-serif; font-size: 1.2rem;">Click anywhere to open</p>
+        </div>
+    </div>
+
+<svg id="top-right-svg" width="320" height="320" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Soft ground shadow -->
+  <ellipse cx="160" cy="285" rx="70" ry="14" fill="#000" opacity="0.08"/>
+
+  <!-- Head -->
+  <circle cx="160" cy="120" r="75" fill="#FFE6EC" stroke="#2A2A2A" stroke-width="3"/>
+
+  <!-- Fluffy Hair -->
+  <path d="
+    M95 115
+    Q105 60 160 60
+    Q215 60 225 115
+    Q210 85 190 80
+    Q180 65 160 70
+    Q140 65 130 80
+    Q110 85 95 115 Z"
+    fill="#5C3A2E" stroke="#2A2A2A" stroke-width="3"/>
+
+  <!-- Hair side puffs -->
+  <circle cx="95" cy="120" r="18" fill="#5C3A2E" stroke="#2A2A2A" stroke-width="3"/>
+  <circle cx="225" cy="120" r="18" fill="#5C3A2E" stroke="#2A2A2A" stroke-width="3"/>
+
+  <!-- Eyes -->
+  <ellipse cx="135" cy="125" rx="20" ry="24" fill="#FFFFFF" stroke="#2A2A2A" stroke-width="2"/>
+  <ellipse cx="185" cy="125" rx="20" ry="24" fill="#FFFFFF" stroke="#2A2A2A" stroke-width="2"/>
+
+  <circle cx="135" cy="132" r="11" fill="#C2185B"/>
+  <circle cx="185" cy="132" r="11" fill="#C2185B"/>
+
+  <circle cx="140" cy="125" r="5" fill="#FFFFFF"/>
+  <circle cx="190" cy="125" r="5" fill="#FFFFFF"/>
+
+  <!-- Rosy cheeks -->
+  <circle cx="110" cy="155" r="10" fill="#FF9EB5" opacity="0.6"/>
+  <circle cx="210" cy="155" r="10" fill="#FF9EB5" opacity="0.6"/>
+
+  <!-- Tiny button nose -->
+  <circle cx="160" cy="150" r="4" fill="#2A2A2A"/>
+
+  <!-- Smile -->
+  <path d="M140 165 Q160 185 180 165" stroke="#2A2A2A" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+  <!-- Body (Suit) -->
+  <rect x="115" y="195" width="90" height="85" rx="25"
+        fill="#E91E63" stroke="#2A2A2A" stroke-width="3"/>
+
+  <!-- Shirt -->
+  <rect x="145" y="195" width="30" height="85" fill="#FFFFFF"/>
+
+  <!-- Tie -->
+  <polygon points="160,205 170,225 160,260 150,225"
+           fill="#AD1457" stroke="#2A2A2A" stroke-width="2"/>
+
+  <!-- Suit Lapels -->
+  <polygon points="115,195 145,225 145,195"
+           fill="#C2185B"/>
+  <polygon points="205,195 175,225 175,195"
+           fill="#C2185B"/>
+
+  <!-- Arms -->
+  <ellipse cx="100" cy="225" rx="18" ry="28"
+           fill="#E91E63" stroke="#2A2A2A" stroke-width="3"/>
+  <ellipse cx="220" cy="225" rx="18" ry="28"
+           fill="#E91E63" stroke="#2A2A2A" stroke-width="3"/>
+
+  <!-- Hands -->
+  <circle cx="100" cy="245" r="12"
+          fill="#FFE6EC" stroke="#2A2A2A" stroke-width="3"/>
+  <circle cx="220" cy="245" r="12"
+          fill="#FFE6EC" stroke="#2A2A2A" stroke-width="3"/>
+
+  <!-- Heart being held -->
+  <path d="
+    M160 235
+    C150 220, 120 225, 145 255
+    C160 275, 160 275, 175 255
+    C200 225, 170 220, 160 235 Z"
+    fill="#FF3D6E" stroke="#2A2A2A" stroke-width="3"/>
+
+  <!-- Legs -->
+  <rect x="135" y="280" width="20" height="25" rx="8"
+        fill="#2A2A2A"/>
+  <rect x="165" y="280" width="20" height="25" rx="8"
+        fill="#2A2A2A"/>
+
+</svg>
 
     <!-- FLOATING HEARTS BG -->
     <div id="hearts-container" style="position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:9997;"></div>
 
-    <div class="book" id="book">
+
+
+    <div class="book" id="book" style="display: none;">
         
         <!-- PAGE 1: COVER -->
         <div class="page" id="p1">
@@ -415,8 +518,10 @@
                     <p class="cover-subtitle">A Small gift</p>
                 </div>
             </div>
-            <div class="back">
-                <p class="hello-love">Hello Love!</p>
+            <div class="back more-decorated-back">
+                <svg class="flourish" viewBox="0 0 100 20"><path d="M0 10 C 20 0, 40 0, 50 10 S 80 20, 100 10"></path></svg>
+                <p class="hello-love">❤️ Hello Love! ❤️</p>
+                <svg class="flourish" viewBox="0 0 100 20" style="transform: scaleY(-1);"><path d="M0 10 C 20 0, 40 0, 50 10 S 80 20, 100 10"></path></svg>
                 <div class="gold-line-small"></div>
                 <p class="note">I wanted to make something special for you, because you are Sakshiii.</p>
                 <p class="note">Just a little reminder of how much you are loved, even if you don't have a boyfriend</p>
@@ -464,7 +569,7 @@
                 <p class="select-topic-note">Pick one to read <br> Read all though</p>
                 
                 <div style="width: 100%;">
-                    <button class="poem-menu-btn" data-poem="silence">When you are sad</button>
+                    <button class="poem-menu-btn" data-poem="silence">The curse I should've never wrote</button>
                     <button class="poem-menu-btn" data-poem="mad">When you don't talk to me</button>
                     <button class="poem-menu-btn" data-poem="love">When I can't express how much I love you</button>
                 </div>
@@ -482,7 +587,7 @@
                 <div class="poem-scroll-container">
                     <div id="poem-content-area">
                         <div class="placeholder-text">
-                            Poetry is something I do to say what can't be said
+                            Poetry is something I do to say what can't be said <br>Well they may be cringe, but cooperate
                             <br><br>
                             
                         </div>
@@ -518,6 +623,7 @@
             <div class="front">
                 <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100%;">
                     <h2 style="font-family:'Pacifico'; font-size:2rem; color:var(--accent);">Will you be my Valentine?</h2>
+                    <p style="margin-top:10px; font-size:0.95rem; color:#5d4037; text-align:center;">No, you aren't worhty enough to be one</p>
                     <div style="font-size:3rem; margin-top:20px;">💘</div>
                 </div>
             </div>
@@ -536,7 +642,7 @@
 
     </div>
 
-    <div class="controls">
+    <div class="controls" style="display: none;">
         <button class="nav-btn" id="prevBtn">←</button>
         <button class="nav-btn" id="nextBtn">→</button>
     </div>
@@ -590,6 +696,27 @@
         opacity: 0;
     }
 
+
+
+    /* Animation for the interactive decoration */
+    @keyframes shake {
+        0% { transform: translateX(-50%) rotate(0deg); }
+        25% { transform: translateX(-50%) rotate(5deg); }
+        50% { transform: translateX(-50%) rotate(-5deg); }
+        75% { transform: translateX(-50%) rotate(5deg); }
+        100% { transform: translateX(-50%) rotate(0deg); }
+    }
+
+    .shake-animation {
+        animation: shake 0.3s ease-in-out;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
     @keyframes floatUp {
         0% {
             transform: translateY(0) rotate(0deg);
@@ -633,16 +760,13 @@
                     lightboxClose: document.getElementById('lightbox-close'),
                     heartsContainer: document.getElementById('hearts-container'),
 
-                    polaroidImg: document.querySelector('.polaroid-img img'),
-                    lightbox: document.getElementById('lightbox'),
-                    lightboxImg: document.getElementById('lightbox-img'),
-                    lightboxClose: document.getElementById('lightbox-close'),
-                    heartsContainer: document.getElementById('hearts-container'),
+                    closeBookBtn: document.getElementById('close-book-btn'),
                 };
 
                 // --- STATE ---
                 this.currentPage = 0;
                 this.maxPageIndex = this.dom.pages.length;
+                console.log('Max Page Index:', this.maxPageIndex); // Debugging line
                 this.isFlipping = false;
                 this.prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -650,23 +774,24 @@
                 this.poems = {
                     'silence': {
                         title: "When silence falls...",
-                        text: "When you don't talk to me,\nthe world feels a little quieter,\na little colder.\n\nI check my phone,\nhoping to see your name,\nbecause your words are the sunlight\nthat breaks through my gray days.\n\nEven in the silence,\nknow that I am waiting,\nand that I love you\nmore than the quiet is loud."
+                        text: "Bhagwan ke liye, tujhe bhi kisi apne se ek-tarfa umeed ho jaaye,\nTu bhi kisi ke liye ruk jaaye, jaise tere liye main rukti rahi.\nLagayi hui aas ka koi jawaab na mile,\nTu baatein soche, par saamne se koi baat na aaye.\n\nJitni tu parwah kare,\nSaamne wala thodi si bhi na kare.\nJitna koi kabhi ignore na hua ho,\nUtna hi ignore tujhe bhi kiya jaaye.\n\nNa wahan nakhre ho, na hi koi shikayatein,\nBas chup rehna ho—roz ka, aadat sa.\nBhagwan ke liye, tujhe bhi kisi apne se ek-tarfa umeed ho jaaye.\n\nTu hamesha last option ban kar rahe,\nZarurat pade tab hi yaad kiya jaaye.\nJab unka mann ho baat ho,\nAur jab na ho—toh tu khud ko samjhaati rahe.\n\nTu unhe apna sab kuch maane,\nAur wo tujhe bas ek naam samjhein.\nTeri izzat, tere jazbaat,\nSab ko wo aasani se nazar-andaaz kar dein.\n\nBas itni si dua hai,\nJo dard mujhe mila hai,\nWo tujhe thoda kam mile.\nKyunki jo maine diya tha bina shart ke,\nWo maine maanga nahi,\nAur jo tu de sakti thi—\nWo tune diya nahi."
+ 
                     },
                     'mad': {
                         title: "When storms come...",
-                        text: "I know things get tough.\nI know I make mistakes.\n\nWhen you are mad at me,\nit feels like a storm inside my chest.\nI never want to be the reason\nfor your frown.\n\nBut even in the storm,\nI am not leaving.\nI am here to fix it,\nto hold you,\nuntil the sun comes out again."
+                        text: "Kis baat ki naraazgi hai, kuch bata to sahi,\nKuch bol to sahi, kabhi samjha to sahi.\nIn naraazgiyon ne dil bhaari kar diya hai,\nAankhon ko aansuon ka bojh de diya hai.\nKuch bol to sahi, kabhi muskura to sahi.\n\nNazrein chura lena, door jaakar baith jaana,\nApnon se kat kar, khud mein hi simat jaana—\nKahin tujhe apnepan par shaq to nahi?\nKis baat ki naraazgi hai, kabhi jata to sahi."
                     },
                     'love': {
-                        title: "Just Because...",
-                        text: "I don't need a reason\nto write this down.\n\nI just wanted you to know\nthat you are the best thing\nthat has ever happened to me.\n\nToday, tomorrow,\nand forever."
+                        title: "",
+                        text: "Kitni chahat hai tumko paane ki, kaise izhaar karein,\nLafzon mein kam pad jaaye jo, wo rishta kaise bayaan karein.\n\nAankhon mein, saanson mein basaa hai naam tera,\nHar dua mein tera zikr hai, ab aur kya bayaan karein?\n\nMeri mohabbat ko galat na samajhna, meri behen,\nYe wo rishta hai jo har imtihaan mein rehta hai saath, har pal, har din.\n\nTu hansi to ghar roshan ho jaata hai,\nTu roye to dil chupchaap toot jaata hai.\n\nKhuda se bas itni si dua hai meri,\nTeri muskurahat kabhi kam na ho, teri raahon mein gham na ho.\n\nAgar kabhi duniya thaka de tujhe, ya waqt ho zara kathin,\nYaad rakhna—tera bhai hamesha khada milega yahin.\n\nRishta khoon ka ho ya dua ka, farq nahi padta,\nTu meri taqat hai, meri zimmedaari—ye dil maanta hai."
                     }
                 };
                 
                 this.moods = {
-                    'Happy': { icon: '😄', msg: "Your smile lights up my world!" },
-                    'Tired': { icon: '🍵', msg: "Rest well, you've done enough." },
+                    'Happy': { icon: '😄', msg: "As you should be after getting so cool gift" },
+                    'Tired': { icon: '🍵', msg: "Stay tired, you don't know anything though." },
                     'Unloved': { icon: '💔', msg: "Even after all this, you're feeling unloved?" },
-                    'Sad': { icon: '❤️‍🩹', msg: "I'm with you. Always." }
+                    'Sad': { icon: '❤️‍🩹', msg: "I'm with you." }
                 };
 
                 // --- INITIALIZATION ---
@@ -674,6 +799,7 @@
                 this.updateNavButtons();
                 this.updateZIndex();
                 this.setupAria();
+                this.startHeartsAnimation(9999999); // Start continuous background animation
             }
 
             // --- DEBOUNCE UTILITY ---
@@ -730,6 +856,8 @@
                 this.updateNavButtons();
                 setTimeout(this.resetUI, 500);
             }
+            
+
 
             // --- UI & INTERACTIVITY ---
             setMood(mood) {
@@ -760,10 +888,7 @@
                 this.startHeartsAnimation(3500);
                 this.startInternalAnimation();
 
-                // Automatically close the book after a delay
-                setTimeout(() => {
-                    this.closeBook();
-                }, 2500); // 2.5 second delay to read the message
+
             }
 
             startInternalAnimation = () => {
@@ -784,6 +909,8 @@
                     }, i * 150);
                 }
             }
+
+
 
             triggerUnlockBurst(rect) {
                 const symbols = ['❤️', '🌸', '🌹', '✨'];
@@ -832,7 +959,7 @@
 
             updateNavButtons() {
                 const atStart = this.currentPage === 0;
-                const atEnd = this.currentPage === this.maxPageIndex;
+                const atEnd = this.currentPage >= this.maxPageIndex;
                 
                 this.dom.prevBtn.disabled = atStart;
                 this.dom.nextBtn.disabled = atEnd;
@@ -908,6 +1035,10 @@
 
             // --- EVENT LISTENERS ---
             addEventListeners() {
+
+                
+
+                
                 // Navigation
                 this.dom.prevBtn.addEventListener('click', this.debounce(this.goPrev, 250));
                 this.dom.nextBtn.addEventListener('click', this.debounce(this.goNext, 250));
@@ -924,6 +1055,7 @@
 
                 // Lock & Close
                 this.dom.lockIcon.addEventListener('click', this.unlockSecret);
+                this.dom.closeBookBtn.addEventListener('click', this.closeBook);
 
                 // Lightbox
                 this.dom.polaroidImg.addEventListener('click', this.openLightbox);
@@ -952,7 +1084,37 @@
 
         // --- KICK IT OFF ---
         document.addEventListener('DOMContentLoaded', () => {
-            new Book();
+            const splashScreen = document.getElementById('splash-screen');
+            const bookElement = document.getElementById('book');
+            const controlsElement = document.querySelector('.controls');
+            const topRightSvg = document.getElementById('top-right-svg');
+
+            splashScreen.addEventListener('click', () => {
+                splashScreen.style.opacity = '0';
+
+                bookElement.style.display = 'block';
+                controlsElement.style.display = 'flex';
+                if(topRightSvg) {
+                    topRightSvg.style.display = 'block';
+                }
+
+                splashScreen.addEventListener('transitionend', () => {
+                    splashScreen.remove();
+                });
+
+                new Book();
+            }, { once: true });
+
+            if (topRightSvg) {
+                topRightSvg.addEventListener('click', () => {
+                    if (!topRightSvg.classList.contains('shake-animation')) {
+                        topRightSvg.classList.add('shake-animation');
+                        topRightSvg.addEventListener('animationend', () => {
+                            topRightSvg.classList.remove('shake-animation');
+                        }, { once: true });
+                    }
+                });
+            }
         });
     </script>
 </body>
